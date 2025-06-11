@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "737134731791",
+    "project_id": "flask-oauth-app-459902",
+    "storage_bucket": "flask-oauth-app-459902.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:737134731791:android:47f5bc3b09d3f27c26797a",
+        "android_client_info": {
+          "package_name": "com.capstone.mobile_capstone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "737134731791-qnrf15knibg6dmdgd9a0hcm2jgr07l9t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.capstone.mobile_capstone",
+            "certificate_hash": "3fd4177a8406596ddc4a7498d905673288576088"
+          }
+        },
+        {
+          "client_id": "737134731791-i6mb3kqu3hva6muped01htfki4pvcvjp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN9NOif0fCPaSa8XgbIFZ1qaTB_U6eXjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "737134731791-i6mb3kqu3hva6muped01htfki4pvcvjp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
