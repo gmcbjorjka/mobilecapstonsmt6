@@ -1,0 +1,2 @@
+C:/smt6/mobile/capstone/mobile_capstone/android/app/.cxx/Debug/1wbk5020/x86/CMakeFiles/edit_cache.dir
+C:/smt6/mobile/capstone/mobile_capstone/android/app/.cxx/Debug/1wbk5020/x86/CMakeFiles/rebuild_cache.dir

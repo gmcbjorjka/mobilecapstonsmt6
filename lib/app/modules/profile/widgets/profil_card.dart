@@ -28,9 +28,8 @@ class ProfileCard extends GetView<ProfilController> {
               CircleAvatar(
                 radius: 40,
                 backgroundImage: foto.isNotEmpty
-                    ? (foto.startsWith('http')
-                        ? NetworkImage(foto)
-                        : NetworkImage("${ApiConfig.baseUrl}/uploads/$foto"))
+                    ? NetworkImage(
+                        "${ApiConfig.baseUrl}/uploads/$foto?v=${DateTime.now().millisecondsSinceEpoch}")
                     : const AssetImage('assets/images/default_profile.jpeg')
                         as ImageProvider,
               ),
@@ -45,8 +44,7 @@ class ProfileCard extends GetView<ProfilController> {
               OutlinedButton.icon(
                 onPressed: () {
                   if (controller.user != null) {
-                    Get.toNamed(
-                        Routes.EDIT_PROFILE); // ✅ Gunakan konstanta, lebih aman
+                    Get.toNamed(Routes.EDIT_PROFILE);
                   } else {
                     Get.snackbar("Oops", "Data pengguna tidak ditemukan.",
                         backgroundColor: Colors.orange,

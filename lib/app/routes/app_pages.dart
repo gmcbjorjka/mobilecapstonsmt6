@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
+import 'package:mobile_capstone/app/modules/profile/views/EditNamaPage.dart';
 
+import '../modules/StreamlitWeb/bindings/streamlit_web_binding.dart';
+import '../modules/StreamlitWeb/views/streamlit_web_view.dart';
 import '../modules/artikel/bindings/artikel_binding.dart';
 import '../modules/artikel/views/artikel_detail_view.dart';
 import '../modules/artikel/views/artikel_view.dart';
@@ -16,6 +19,8 @@ import '../modules/ikanview/views/ikan_detail.dart';
 import '../modules/ikanview/views/ikanview_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/login_history/bindings/login_history_binding.dart';
+import '../modules/login_history/views/login_history_view.dart';
 import '../modules/mainPage/bindings/main_page_binding.dart';
 import '../modules/mainPage/views/main_page_view.dart';
 import '../modules/measurement/bindings/measurement_binding.dart';
@@ -25,6 +30,8 @@ import '../modules/notifikasiPage/views/notifikasi_page_view.dart';
 import '../modules/pelabuhan/bindings/pelabuhan_binding.dart';
 import '../modules/pelabuhan/views/pelabuhan_detail.dart';
 import '../modules/pelabuhan/views/pelabuhan_view.dart';
+import '../modules/penimbangan_history/bindings/penimbangan_history_binding.dart';
+import '../modules/penimbangan_history/views/penimbangan_history_view.dart';
 import '../modules/post/bindings/post_binding.dart';
 import '../modules/post/views/post_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
@@ -158,6 +165,26 @@ class AppPages {
       name: _Paths.POST,
       page: () => PostView(),
       binding: PostBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN_HISTORY,
+      page: () => LoginHistoryView(),
+      binding: LoginHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.PENIMBANGAN_HISTORY,
+      page: () => const PenimbanganHistoryView(),
+      binding: PenimbanganHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.STREAMLIT_WEB,
+      page: () => const StreamlitWebPage(),
+      binding: StreamlitWebBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_PROFILE_NAME,
+      page: () => const EditNamaPage(),
+      binding: ProfilBinding(),
     ),
   ];
 }

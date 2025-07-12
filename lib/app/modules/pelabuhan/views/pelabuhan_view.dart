@@ -10,7 +10,6 @@ class PelabuhanView extends GetView<PelabuhanController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text(
           'Pelabuhan',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -18,6 +17,15 @@ class PelabuhanView extends GetView<PelabuhanController> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Color(0xFF1456EA),
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
       ),
       backgroundColor: Colors.white,
       body: Padding(

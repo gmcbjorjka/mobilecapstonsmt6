@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../config/app_config.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/profil_controller.dart';
 
@@ -9,13 +10,6 @@ class UbahProfil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ProfilController>();
-    final user = controller.user;
-
-    if (user == null) {
-      return const Scaffold(
-        body: Center(child: Text("Data pengguna tidak ditemukan.")),
-      );
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -44,14 +38,18 @@ class UbahProfil extends StatelessWidget {
                 alignment: Alignment.bottomRight,
                 children: [
                   Obx(() {
-                    final image = controller.selectedImage.value;
+                    print("✅ selectedImage: ${controller.selectedImage.value}");
+                    print("✅ fotoProfil: ${controller.fotoProfil.value}");
+
                     ImageProvider imageProvider;
 
-                    if (image != null) {
-                      imageProvider = FileImage(image);
-                    } else if (user.fotoProfil != null &&
-                        user.fotoProfil!.isNotEmpty) {
-                      imageProvider = NetworkImage(user.fotoProfil!);
+                    if (controller.selectedImage.value != null) {
+                      imageProvider =
+                          FileImage(controller.selectedImage.value!);
+                    } else if (controller.fotoProfil.value.isNotEmpty) {
+                      imageProvider = NetworkImage(
+                        '${ApiConfig.baseUrl}/uploads/${controller.fotoProfil.value}?v=${DateTime.now().millisecondsSinceEpoch}',
+                      );
                     } else {
                       imageProvider =
                           const AssetImage('assets/images/default_avatar.png');
@@ -86,8 +84,8 @@ class UbahProfil extends StatelessWidget {
               style: TextStyle(fontSize: 16, height: 1.5),
             ),
             const SizedBox(height: 20),
-            infoTile("E-Mail", user.email),
-            infoTile("Nama Lengkap", user.nama),
+            Obx(() => infoTile("E-Mail", controller.userEmail.value)),
+            Obx(() => infoTile("Nama Lengkap", controller.userName.value)),
             const SizedBox(height: 20),
             OutlinedButton(
               onPressed: controller.hapusAkun,
@@ -101,6 +99,20 @@ class UbahProfil extends StatelessWidget {
               child: const Text(
                 "HAPUS AKUN",
                 style: TextStyle(color: Colors.red),
+              ),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton.icon(
+              onPressed: controller.uploadFotoProfil,
+              icon: const Icon(Icons.upload, color: Colors.white),
+              label: const Text("SIMPAN FOTO PROFIL",
+                  style: TextStyle(color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF1456EA),
+                minimumSize: const Size.fromHeight(50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
           ],
@@ -151,9 +163,8 @@ class UbahProfil extends StatelessWidget {
         colorText: Colors.white,
         snackPosition: SnackPosition.TOP,
       );
-      // } else {
-      //   Get.toNamed(Routes.EDIT_FIELD, arguments: label);
-      // }
+    } else if (label == "Nama Lengkap") {
+      Get.toNamed(Routes.EDIT_PROFILE_NAME);
     }
   }
 }

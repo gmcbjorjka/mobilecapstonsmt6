@@ -28,12 +28,30 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     return {
-      '_id': id,
+      'id': id,
       'nama': nama,
       'email': email,
       'role': role,
       'foto_profil': fotoProfil,
       'token': token,
     };
+  }
+
+  UserModel copyWith({
+    String? id,
+    String? nama,
+    String? email,
+    String? role,
+    String? fotoProfil,
+    String? token,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      nama: nama ?? this.nama,
+      email: email ?? this.email,
+      role: role ?? this.role,
+      fotoProfil: fotoProfil ?? this.fotoProfil,
+      token: token ?? this.token,
+    );
   }
 }

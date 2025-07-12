@@ -9,6 +9,7 @@ import '../widgets/horizontal_ikan.dart';
 import '../widgets/horizontal_pelabuhan.dart';
 import '../widgets/section_title.dart';
 import '../widgets/smart_solution_card.dart';
+import '../widgets/streamlit_web_section.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -117,6 +118,9 @@ class HomeView extends GetView<HomeController> {
             },
           ),
           const HorizontalIkan(),
+          const SizedBox(height: 15),
+
+          const StreamlitWebSection(), // 🔥 Tambahkan bagian ini
           const SizedBox(height: 50),
         ],
       ),

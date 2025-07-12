@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_capstone/app/data/models/user_model.dart';
-import 'package:mobile_capstone/app/data/services/user_service.dart';
 import 'package:mobile_capstone/app/modules/artikel/controllers/artikel_controller.dart';
 import 'package:mobile_capstone/app/modules/home/controllers/home_controller.dart';
-import 'package:mobile_capstone/app/modules/pelabuhan/controllers/pelabuhan_controller.dart';
 import 'package:mobile_capstone/app/modules/profile/controllers/profil_controller.dart';
 import 'package:mobile_capstone/app/modules/measurement/views/measurement_view.dart';
-import 'package:mobile_capstone/app/modules/pelabuhan/views/pelabuhan_view.dart';
 import 'package:mobile_capstone/app/modules/home/views/home_view.dart';
 import 'package:mobile_capstone/app/modules/profile/views/profile_view.dart';
 
+import '../../../data/models/user_model.dart';
+import '../../../data/services/user_service.dart';
+import '../../measurement/controllers/measurement_controller.dart';
+
+import '../../penimbangan_history/controllers/penimbangan_history_controller.dart';
+import '../../penimbangan_history/views/penimbangan_history_view.dart';
 import '../controllers/main_page_controller.dart';
 
 class MainPageView extends GetView<MainPageController> {
@@ -26,7 +28,8 @@ class MainPageView extends GetView<MainPageController> {
           currentIndex: controller.selectedIndex.value,
           onTap: (index) async {
             if (index == 1) {
-              // Misal CameraView belum dibuat, ganti sesuai kebutuhan
+              Get.delete<MeasurementController>();
+              Get.put(MeasurementController());
               Get.to(() => CameraView());
             } else {
               controller.changePage(index);
@@ -36,7 +39,7 @@ class MainPageView extends GetView<MainPageController> {
           items: [
             _buildNavItem(Icons.home, 'Beranda', 0),
             _buildNavItem(Icons.straighten, 'Penimbangan AI', 1),
-            _buildNavItem(Icons.directions_boat, 'Pelabuhan', 2),
+            _buildNavItem(Icons.history, 'Histori', 2), // ✅ Ubah ke Histori
             _buildNavItem(Icons.person, 'Profil', 3),
           ],
           selectedFontSize: 0,
@@ -54,9 +57,6 @@ class MainPageView extends GetView<MainPageController> {
         if (!Get.isRegistered<HomeController>()) {
           Get.put(HomeController());
         }
-        if (!Get.isRegistered<PelabuhanController>()) {
-          Get.put(PelabuhanController());
-        }
         if (!Get.isRegistered<ArtikelController>()) {
           Get.put(ArtikelController());
         }
@@ -66,10 +66,10 @@ class MainPageView extends GetView<MainPageController> {
         return CameraView();
 
       case 2:
-        if (!Get.isRegistered<PelabuhanController>()) {
-          Get.put(PelabuhanController());
+        if (!Get.isRegistered<PenimbanganHistoryController>()) {
+          Get.put(PenimbanganHistoryController());
         }
-        return const PelabuhanView();
+        return const PenimbanganHistoryView(); // ✅ Menuju histori
 
       case 3:
         return FutureBuilder(
@@ -124,7 +124,6 @@ class MainPageView extends GetView<MainPageController> {
       if (user != null) {
         Get.put<UserModel>(user);
       } else {
-        // Kalau tidak ada user, redirect ke login
         Get.offAllNamed('/login');
         return;
       }

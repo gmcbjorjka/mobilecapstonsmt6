@@ -28,11 +28,17 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  fl_chart: ^0.66.2
+  webview_flutter: ^4.2.2
+  webview_flutter_android: ^4.0.0 # 🔒 versi stabil yang kompatibel
   google_sign_in: ^6.1.4
   shared_preferences: ^2.2.0
+  device_info_plus: ^10.1.0
   jwt_decoder: ^2.0.1
   http: ^0.13.6
   camera: ^0.10.5+3
+  intl: ^0.18.1
+
   image_picker: ^1.0.7
   flutter:
     sdk: flutter
@@ -65,6 +71,8 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/best_float32.tflite
+    - assets/labelmap.txt
     - assets/images/mancing.jpg
     - assets/images/
     - assets/icons/

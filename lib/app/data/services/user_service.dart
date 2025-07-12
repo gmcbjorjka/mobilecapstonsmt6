@@ -2,24 +2,33 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/app_config.dart';
+import '../models/login_history_model.dart';
 import '../models/user_model.dart';
 
 class UserService {
-  static Future<Map<String, dynamic>> login(
-      String email, String password) async {
+  static Future<Map<String, dynamic>> login(String email, String password,
+      {String? deviceInfo}) async {
     final url = Uri.parse("${ApiConfig.baseUrl}/user/login");
 
     try {
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'email': email, 'password': password}),
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+          'device_info': deviceInfo ?? 'Unknown Device'
+        }),
       );
 
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200 && data['data'] != null) {
         final user = UserModel.fromJson(data['data']);
+
+        // ✅ SIMPAN TOKEN & USER
+        await saveUserToPrefs(user);
+
         return {
           'success': true,
           'user': user,
@@ -31,6 +40,33 @@ class UserService {
     } catch (e) {
       return {'success': false, 'message': 'Terjadi kesalahan: $e'};
     }
+  }
+
+  static Future<List<LoginHistoryModel>> getLoginHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    final response = await http.get(
+      Uri.parse("${ApiConfig.baseUrl}/user/login-history"),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception(
+          "Gagal mengambil data. Code: ${response.statusCode}, Body: ${response.body}");
+    }
+
+    final data = jsonDecode(response.body);
+    if (data['data'] == null) {
+      throw Exception("Data kosong: ${data['message']}");
+    }
+
+    return (data['data'] as List)
+        .map((item) => LoginHistoryModel.fromJson(item))
+        .toList();
   }
 
   static Future<void> saveUserToPrefs(UserModel user) async {

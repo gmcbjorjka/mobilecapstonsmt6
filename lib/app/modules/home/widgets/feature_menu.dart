@@ -35,7 +35,7 @@ class FeatureMenu extends StatelessWidget {
       },
       {
         'icon': Icons.timeline,
-        'label': 'Spot Ikan',
+        'label': 'Analisis',
         'gradient': LinearGradient(
             colors: [Color(0xFFFF7EB3), Color(0xFFFF758C)],
             begin: Alignment.topLeft,
@@ -69,10 +69,7 @@ class FeatureMenu extends StatelessWidget {
                 } else if (index == 2) {
                   Get.toNamed(Routes.IKANVIEW);
                 } else if (index == 3) {
-                  Get.snackbar(
-                    "Info",
-                    "Fitur ini sedang dalam pengembangan",
-                  );
+                  Get.toNamed(Routes.STREAMLIT_WEB);
                 } else if (index == 4) {
                   Get.toNamed(Routes.POST);
                 }

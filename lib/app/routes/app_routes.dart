@@ -25,6 +25,10 @@ abstract class Routes {
   static const BANTUAN = _Paths.BANTUAN;
   static const GANTI_KATASANDI = _Paths.GANTI_KATASANDI;
   static const POST = _Paths.POST;
+  static const LOGIN_HISTORY = _Paths.LOGIN_HISTORY;
+  static const PENIMBANGAN_HISTORY = _Paths.PENIMBANGAN_HISTORY;
+  static const STREAMLIT_WEB = _Paths.STREAMLIT_WEB;
+  static const EDIT_PROFILE_NAME = _Paths.EDIT_PROFILE_NAME;
 }
 
 abstract class _Paths {
@@ -51,4 +55,8 @@ abstract class _Paths {
   static const BANTUAN = '/bantuan';
   static const GANTI_KATASANDI = '/ganti-katasandi';
   static const POST = '/post';
+  static const LOGIN_HISTORY = '/login-history';
+  static const PENIMBANGAN_HISTORY = '/penimbangan-history';
+  static const STREAMLIT_WEB = '/streamlit-web';
+  static const EDIT_PROFILE_NAME = '/edit-profile-name';
 }

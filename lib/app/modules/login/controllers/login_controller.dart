@@ -11,6 +11,9 @@ import '../../../data/models/user_model.dart';
 import '../../../data/services/user_service.dart';
 import '../../../routes/app_pages.dart';
 
+import 'package:device_info_plus/device_info_plus.dart';
+import 'dart:io';
+
 class LoginController extends GetxController {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -27,12 +30,26 @@ class LoginController extends GetxController {
     rememberMe.value = value ?? false;
   }
 
+  Future<String> getDeviceInfo() async {
+    final deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      final android = await deviceInfo.androidInfo;
+      return '${android.manufacturer} ${android.model} (Android ${android.version.release})';
+    } else if (Platform.isIOS) {
+      final ios = await deviceInfo.iosInfo;
+      return '${ios.name} ${ios.model} (iOS ${ios.systemVersion})';
+    } else {
+      return 'Unknown Device';
+    }
+  }
+
   Future<void> login() async {
     if (isLoading.value) return;
     isLoading.value = true;
 
     final email = emailController.text.trim();
     final password = passwordController.text;
+    final deviceInfo = await getDeviceInfo();
 
     if (email.isEmpty || password.isEmpty) {
       Get.snackbar("Error", "Email dan Password harus diisi",
@@ -41,7 +58,8 @@ class LoginController extends GetxController {
       return;
     }
 
-    final result = await UserService.login(email, password);
+    final result =
+        await UserService.login(email, password, deviceInfo: deviceInfo);
 
     if (result['success']) {
       final user = result['user'] as UserModel;

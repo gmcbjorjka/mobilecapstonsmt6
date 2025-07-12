@@ -52,6 +52,13 @@ class ProfilView extends GetView<ProfilController> {
                         },
                       ),
                       MenuItem(
+                        icon: Icons.history,
+                        title: 'History Login',
+                        onTap: () {
+                          Get.toNamed(Routes.LOGIN_HISTORY);
+                        },
+                      ),
+                      MenuItem(
                         icon: Icons.logout,
                         title: 'Keluar',
                         onTap: controller.logout,
